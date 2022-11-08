@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+
+contract auction
+{
+
+    mapping (address => uint) biddersdata;
+    uint highestbidamount;
+    address heighestbidder;
+
+    function putbid() public payable {
+        uint calculateamount=biddersdata[msg.sender]+msg.value;
+        require(msg.value>0,"it should be greater than 0");
+        require(calculateamount>highestbidamount,"it should be greater than 0");
+        biddersdata[msg.sender]=calculateamount;
+        highestbidamount=calculateamount;
+        heighestbidder=msg.sender;
+    }
+    function getbalance(address _address)public view returns(uint)
+    {
+        return  biddersdata[_address];
+    }
+    function Highestbidamount() public view returns (uint)
+    {
+        return highestbidamount;
+    }
+
+    function Heighestbidder() public view returns (address)
+    {
+        return  heighestbidder;
+    }
+
+}
